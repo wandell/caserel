@@ -190,7 +190,12 @@ switch layerName
     %bright to dark
     case {'rpe' 'nflgcl' 'oplonl' 'iplinl' }
         adjMatrixW = sparse(adjMA(keepInd),adjMB(keepInd),adjMW(keepInd),numel(img(:)),numel(img(:)));    
+        
+        % Need to update thisline (BW).   The newer algorithms are looking
+        % for a graph, and the old one has a matrix (adjacency).
+        % [ ~, path ] = shortestpathtree( adjMatrixW, 1, numel(img(:)) );
         [ ~, path ] = graphshortestpath( adjMatrixW, 1, numel(img(:)) );
+        
         % dist = nan(size(path));
         % for i = 1:numel(path)-1,dist(i)=adjMatrixW(path(i),path(i+1));end
     %dark to bright
